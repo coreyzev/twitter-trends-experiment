@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "TownSquared Code Test" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
-  </head>
+</head>
 
-  <body>
-
-    <%= yield %>
-
-  </body>
+<body class="<%= controller_name %> <%= action_name %>">
+    <div class="wrapper">
+        <header>
+            <div class="row">
+                <%= yield :header %>
+            </div>
+        </header>
+        <div class="main">
+            <div class="row">
+                <%= yield %>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
