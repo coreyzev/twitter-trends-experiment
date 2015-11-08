@@ -2,7 +2,22 @@
     <%= render partial: "shared/header", locals: {page: 'index'} %>
 <% end %>
 
-<div class="large-12 columns">
-    <h2>Home#index</h2>
-    <p>Find me in app/views/home/index.html.erb</p>
+<div class="small-12 columns">
+    <form>
+        <div class="row">
+            <div class="medium-7 columns">
+                <div class="row collapse prefix-radius postfix-round">
+                    <div class="small-3 medium-2 columns">
+                        <span class="prefix">Search</span>
+                    </div>
+                    <div class="small-8 medium-9 columns">
+                        <input type="text" placeholder="Location">
+                    </div>
+                    <div class="small-1 columns">
+                        <a class="postfix button secondary"><i class="fi-target-two"></i></a>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </form>
 </div>

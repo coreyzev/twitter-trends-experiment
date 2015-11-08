@@ -11,7 +11,39 @@
  * file per style scope.
  *
  *= require foundation_and_overrides
- *= require app
  *= require_tree .
  *= require_self
  */
+
+@import 'foundation-icons';
+
+ // Colors
+$grey: #9B9B9B;
+$orange-light: #FFCB74;
+$orange-dark: #F7BE60;
+$blue-light: #60ADF7;
+$blue-dark: #2067AB;
+
+// Global Styles
+
+h1, h2, h3, h4 {
+    color: #ddd;
+}
+
+header {
+    background: $blue-dark;
+}
+
+.main {
+    background: $blue-light;
+}
+
+form .row .row {
+    &.prefix-radius, &.prefix-round {
+        &.postfix-radius, &.postfix-round {
+            input {
+                border-radius: 0px;
+            }
+        }
+    }
+}
