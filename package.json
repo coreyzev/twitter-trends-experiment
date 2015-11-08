@@ -1,0 +1,10 @@
+{
+  "name": "tnsq-code-test",
+  "version": "0.0.1",
+  "private": true,
+  "description": "",
+  "author": "Corey Zev Holland",
+  "dependencies": {
+    "geolib": "^2.0.18"
+  }
+}
