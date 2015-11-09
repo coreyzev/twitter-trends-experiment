@@ -1,25 +1,25 @@
 class HomeController < ApplicationController
   def index
-    if params[:location].blank?
-        if Rails.env.test? || Rails.env.development?
-            get_location(default_location)
-        else
-            get_location(request.location.address)
-        end
-    else
-        params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
-        get_location(params[:location])
-    end
     if @config = Config.first
     else
+        if params[:location].blank?
+            if Rails.env.test? || Rails.env.development?
+                get_location(default_location)
+            else
+                get_location(request.location.address)
+            end
+        else
+            params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
+            get_location(params[:location])
+        end
         @config = Config.create(location: @location, limit: 5, address: @location.address)
     end
-    if !Trend.first
+    if Trend.first.blank?
         trends = $twitter_client.trends(id = @config.twitter_place.id)
         trends.each do |trend|
             Trend.create(name: trend.name, query: trend.query, url: trend.url)
         end
-    elsif Trend.where('updated_at > ?', 15.minutes.ago)
+    elsif Trend.where('updated_at > ?', 15.minutes.ago).present?
         trends = $twitter_client.trends(id = @config.twitter_place.id)
         trends.each_with_index do |trend, index|
             Trend.update(index + 1, name: trend.name, query: trend.query, url: trend.url)
@@ -34,8 +34,12 @@ class HomeController < ApplicationController
     config = Config.first
     if old_address != config.address
         location = get_location(config.address)
-        config.twitter_place = $twitter_client.trends_closest({:lat => location.latitude, :long => location.longitude}).first
-        trends = $twitter_client.trends(id = config.twitter_place.id)
+        twit_place = $twitter_client.trends_closest({:lat => location.latitude, :long => location.longitude}).first
+        trends = $twitter_client.trends(id = twit_place.id)
+        if twit_place.nil? or trends.nil?
+            flash[:error] = "There have been too many twitter requests in a 15 minute period."
+        end
+        Config.first.update(twitter_place: twit_place)
         trends.each_with_index do |trend, index|
             Trend.update(index + 1, name: trend.name, query: trend.query, url: trend.url)
         end
@@ -58,5 +62,11 @@ class HomeController < ApplicationController
             Location.first.update(address: loc::address, latitude: loc::latitude, longitude: loc::longitude)
             Location.first
         end
+    end
+
+    def twitter_stream
+        $twitter_stream
+    rescue Twitter::Error::TooManyRequests
+        nil
     end
 end

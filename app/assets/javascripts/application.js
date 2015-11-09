@@ -25,6 +25,7 @@ $(function(){
     });
     $(document).on('ajax:complete', 'form[data-update-target]', function() {
         $(document).foundation('tab','reflow');
+        $(document).foundation('alert', 'reflow');
     });
 
 });

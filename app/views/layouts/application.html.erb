@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "TownSquared Code Test" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "TwitterTrends Code Test" %></title>
 
     <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDYD9iYUsv5mQMj9CI2SIZAOcja-ifh-2E&libraries=places" %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=" + ENV['GOOGLE_BROWSER_KEY'] + "&libraries=places" %>
     <%= javascript_include_tag "https://platform.twitter.com/widgets.js" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -19,6 +19,7 @@
         <header>
             <div class="row">
                 <%= yield :header %>
+
             </div>
         </header>
         <div class="main">

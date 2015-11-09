@@ -1,3 +1,9 @@
 <div class="small-12 columns">
     <h1>Twitter Trends</h1><!--  <%= page %> -->
+    <% flash.each do |key, value| %>
+        <div data-alert class="alert-box <%= key ? key : 'secondary' %>">
+            <%= value %>
+            <a href="#" class="close">&times;</a>
+        </div>
+    <% end %>
 </div>
