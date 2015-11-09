@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @config.address %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @config.location %>
+</p>
+
+<p>
+  <strong>Limit:</strong>
+  <%= @config.limit %>
+</p>
+
+<%= link_to 'Edit', edit_config_path(@config) %> |
+<%= link_to 'Back', configs_path %>

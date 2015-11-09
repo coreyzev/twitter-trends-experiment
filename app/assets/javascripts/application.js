@@ -16,4 +16,16 @@
 //= require turbolinks
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function(){
+    $(document).foundation();
+
+    $(document).on('ajax:success', 'form[data-update-target]', function(evt, data) {
+        var target = $(this).data('update-target');
+        $('#' + target).html(data);
+    });
+    $(document).on('ajax:complete', 'form[data-update-target]', function() {
+        $(document).foundation('tab','reflow');
+    });
+
+});
+

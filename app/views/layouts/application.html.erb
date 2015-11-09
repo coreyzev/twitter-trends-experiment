@@ -7,6 +7,8 @@
     <title><%= content_for?(:title) ? yield(:title) : "TownSquared Code Test" %></title>
 
     <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyDYD9iYUsv5mQMj9CI2SIZAOcja-ifh-2E&libraries=places" %>
+    <%= javascript_include_tag "https://platform.twitter.com/widgets.js" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>

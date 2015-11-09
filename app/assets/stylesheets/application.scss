@@ -11,8 +11,8 @@
  * file per style scope.
  *
  *= require foundation_and_overrides
- *= require_tree .
  *= require_self
+ *= require_tree .
  */
 
 @import 'foundation-icons';
@@ -34,8 +34,9 @@ header {
     background: $blue-dark;
 }
 
-.main {
+.main, html, body {
     background: $blue-light;
+    padding-bottom: 15px;
 }
 
 form .row .row {

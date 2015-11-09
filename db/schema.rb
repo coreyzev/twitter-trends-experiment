@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108032435) do
+ActiveRecord::Schema.define(version: 20151109074644) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -30,6 +30,22 @@ ActiveRecord::Schema.define(version: 20151108032435) do
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id"
 
+  create_table "configs", force: :cascade do |t|
+    t.text     "address"
+    t.integer  "location_id"
+    t.integer  "limit"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "twitter_place"
+  end
+
+  add_index "configs", ["location_id"], name: "index_configs_on_location_id"
+
+  create_table "homes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "address"
     t.float    "latitude"
@@ -39,6 +55,14 @@ ActiveRecord::Schema.define(version: 20151108032435) do
   end
 
   create_table "places", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trends", force: :cascade do |t|
+    t.string   "name"
+    t.string   "query"
+    t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

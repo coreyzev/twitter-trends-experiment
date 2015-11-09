@@ -1,0 +1,17 @@
+<div class="row trend-panel">
+    <div class="small-12 columns">
+        <% trend_results = $twitter_client.search(trend.query, lang: 'en', result_type: "popular").take(5)
+        if !trend_results.blank? %>
+            <h3>Popular tweets for <br><a href="<%= trend.url %>"><%= trend.name %></a></h3>
+            <% for tweet in trend_results %>
+                <%= render partial: 'trend_results', locals: {tweet: tweet} %>
+            <% end %>
+            <center><p>Want more? <a>Click here to see recent posts</a></p></center>
+        <% else %>
+            <h3>Recent tweets for <br><a href="<%= trend.url %>"><%= trend.name %></a></h3>
+            <% $twitter_client.search(trend.query, lang: 'en', result_type: "recent").take(5).each do |tweet| %>
+                <%= render partial: 'trend_results', locals: {tweet: tweet} %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

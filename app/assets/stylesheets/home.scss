@@ -5,3 +5,34 @@
 form {
     margin: 10px 0;
 }
+
+.tabs.vertical {
+    width: 100%;
+    max-width: 100%;
+    .active a, .focus a {
+        outline: none;
+    }
+}
+
+.tabs-content {
+    background-color: #FFF;
+}
+
+.trend-panel {
+    h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #F7BE60;
+        font-weight: bold;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    .tweet-container {
+        .tweet-placeholder {
+            margin: 15px 0;
+        }
+    }
+}

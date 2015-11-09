@@ -3,21 +3,40 @@
 <% end %>
 
 <div class="small-12 columns">
-    <form>
+    <%= form_tag({action: 'update'}, remote: true, 'data-update-target': 'trends_view') do %>
         <div class="row">
             <div class="medium-7 columns">
-                <div class="row collapse prefix-radius postfix-round">
+                <div class="row collapse prefix-radius">
                     <div class="small-3 medium-2 columns">
                         <span class="prefix">Search</span>
                     </div>
-                    <div class="small-8 medium-9 columns">
-                        <input type="text" placeholder="Location">
-                    </div>
-                    <div class="small-1 columns">
-                        <a class="postfix button secondary"><i class="fi-target-two"></i></a>
+                    <div class="small-9 medium-10 columns">
+                        <%= text_field_tag :address, @config::address, autocomplete: 'off', class: 'location-input', placeholder: 'Location', onFocus: 'geolocate()' %>
+                        <!-- <input autocomplete="off" onFocus="geolocate()" class="location-input" type="text" placeholder="Location" value="<%=  %>"> -->
                     </div>
                 </div>
             </div>
+            <div class="small-6 medium-3 columns">
+                <div class="row collapse prefix-radius">
+                    <div class="small-5 columns">
+                        <span class="prefix">Limit</span>
+                    </div>
+                    <div class="small-7 end columns">
+                        <%= text_field_tag :limit, @config::limit, type: 'number', max: 10, autocomplete: 'off'%>
+                    </div>
+                </div>
+            </div>
+            <div class="small-6 medium-2 end columns">
+                <%= submit_tag "Update", class: 'button small secondary' %>
+            </div>
+        </div>
+    <% end %>
+
+
+
+    <p><code>Trends updated <%= time_ago_in_words(Trend.order('updated_at').last.updated_at) %> ago</code></p>
+
+    <div id="trends_view">
+        <%= render partial: 'tweets', locals: {trends: @trends} %>
     </div>
-    </form>
 </div>

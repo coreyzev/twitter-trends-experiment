@@ -1,0 +1,18 @@
+<div class="row">
+        <div class="medium-4 columns">
+            <ul class="tabs vertical" data-tab>
+                <% trends.each_with_index do |trend, index| %>
+                    <li class="tab-title <%= index == 0 ? 'active' : '' %>"><a href="#panel<%= index %>"><%= trend.name %></a></li>
+                <% end %>
+            </ul>
+        </div>
+        <div class="medium-8 columns">
+            <div class="tabs-content">
+                <% @config.limit.times do |index| %>
+                    <div class="content <%= index == 0 ? 'active' : '' %>" id="panel<%= index %>">
+                        <%= render partial: 'trend_single', locals: {trend: trends[index]} %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>

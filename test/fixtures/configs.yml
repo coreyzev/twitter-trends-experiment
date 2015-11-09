@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyText
+  location_id: 
+  limit: 1
+
+two:
+  address: MyText
+  location_id: 
+  limit: 1
