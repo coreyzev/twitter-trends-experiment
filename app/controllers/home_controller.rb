@@ -1,18 +1,20 @@
 class HomeController < ApplicationController
   def index
-    if @config = Config.first
-    else
-        if params[:location].blank?
-            if Rails.env.test? || Rails.env.development?
-                get_location(default_location)
-            else
-                get_location(request.location.address)
-            end
+    if params[:location].blank?
+        if Rails.env.test? || Rails.env.development?
+            get_location(default_location)
         else
-            params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
-            get_location(params[:location])
+            get_location(request.location.address)
         end
-        @location = Location.first
+    else
+        params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
+        get_location(params[:location])
+    end
+    @location = Location.first
+    if Config.first.present?
+        Config.first.update(location: @location, limit: 5, address: @location::address)
+        @config = Config.first
+    else
         @config = Config.create(location: @location, limit: 5, address: @location::address)
     end
     if Trend.first.blank?
