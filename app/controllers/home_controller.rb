@@ -12,7 +12,8 @@ class HomeController < ApplicationController
             params[:location].each {|l| l = l.to_i } if params[:location].is_a? Array
             get_location(params[:location])
         end
-        @config = Config.create(location: @location, limit: 5, address: @location.address)
+        @location = Location.first
+        @config = Config.create(location: @location, limit: 5, address: @location::address)
     end
     if Trend.first.blank?
         trends = $twitter_client.trends(id = @config.twitter_place.id)
@@ -53,15 +54,17 @@ class HomeController < ApplicationController
     end
 
     def get_location(query)
-        if loc = Geocoder.search(query).first
-        else
-            loc = Geocoder.search('173.247.200.165').first
-        end
-        if Location.where(:address => loc::address).first
-        else
-            Location.first.update(address: loc::address, latitude: loc::latitude, longitude: loc::longitude)
-            Location.first
-        end
+      if loc = Geocoder.search(query).first
+      else
+        loc = Geocoder.search('173.247.200.165').first
+      end
+      if Location.first.blank?
+        return Location.create(address: loc::address, latitude: loc::latitude, longitude: loc::longitude)
+      elsif Location.where(:address => loc::address).first
+      else
+        Location.first.update(address: loc::address, latitude: loc::latitude, longitude: loc::longitude)
+        return Location.first
+      end
     end
 
     def twitter_stream

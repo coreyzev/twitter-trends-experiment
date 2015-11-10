@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # manage secrets
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails' #, :groups => [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
@@ -27,16 +27,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # foundation framework
 gem 'foundation-rails'
-gem 'foundation-icons-sass-rails'
 
 # twitter api
 gem 'twitter'
 
 # geo tool
 gem 'geocoder'
-
-# google places api
-gem 'google_places'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

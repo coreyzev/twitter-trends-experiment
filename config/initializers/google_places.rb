@@ -1,1 +1,0 @@
-$places = GooglePlaces::Client.new(ENV["GOOGLE_BROWSER_KEY"])
